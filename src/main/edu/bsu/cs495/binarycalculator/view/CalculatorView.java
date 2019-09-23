@@ -8,8 +8,8 @@ import java.awt.*;
 public class CalculatorView {
 
     private static final String NAME = "Binary Calculator";
-    private static final Dimension WINDOW_DIMENSION = new Dimension(400, 650);
-    private static final Dimension DISPLAY_DIMENSION = new Dimension(400, 150);
+    private static final Dimension WINDOW_DIMENSION = new Dimension(416, 650);
+    private static final Dimension DISPLAY_DIMENSION = new Dimension(400, 100);
     private static final Dimension NUMBER_BUTTON_ROW_DIMENSION = new Dimension(400, 200);
     private static final Dimension NUMBER_BUTTON_DIMENSION = new Dimension(300, 200);
     private static final Dimension OPERATION_BUTTON_DIMENSION = new Dimension(100, 100);
@@ -18,21 +18,22 @@ public class CalculatorView {
 
     private Calculator calculator;
 
-    private JFrame jframe;
-    private JPanel displayPanel;
-    private JPanel rowOnePanel;
-    private JPanel rowOneRightPanel;
-    private JPanel rowZeroPanel;
-    private JPanel rowZeroRightPanel;
-    private JPanel equalsPanel;
-    private JTextPane displayTextPane;
-    private JButton zeroButton;
-    private JButton oneButton;
-    private JButton addButton;
-    private JButton subtractButton;
-    private JButton multiplyButton;
-    private JButton divideButton;
-    private JButton equalsButton;
+    private JFrame jframe = new JFrame();
+    private RowPanel rowOnePanel = new RowPanel();
+    private RowPanel rowZeroPanel = new RowPanel();
+    private RowOperationPanel rowOneRightPanel = new RowOperationPanel();
+    private RowOperationPanel rowZeroRightPanel = new RowOperationPanel();
+    private EqualPanel equalPanel = new EqualPanel();
+    private JTextPane displayTextPane = new JTextPane();
+    private NumberButton oneButton = new NumberButton("1");
+    private NumberButton zeroButton = new NumberButton("0");
+    private OperationButton addButton = new OperationButton("+");
+    private OperationButton subtractButton = new OperationButton("-");
+    private OperationButton multiplyButton = new OperationButton("×");
+    private OperationButton divideButton = new OperationButton("÷");
+    private EqualButton equalButton = new EqualButton("=");
+
+    private Font displayFont = new Font("Sans Serif", Font.PLAIN, 48);
 
     public CalculatorView(Calculator calculator) {
         this.calculator = calculator;
@@ -40,71 +41,144 @@ public class CalculatorView {
         createDisplayPanel();
         createRowOnePanel();
         createRowZeroPanel();
-        createEqualsPanel();
-        jframe.pack();
+        createEqualButton();
+        jframe.setSize(WINDOW_DIMENSION);
         jframe.setVisible(true);
     }
 
     private void createJFrame() {
         jframe = new JFrame();
+        jframe.setPreferredSize(WINDOW_DIMENSION);
         jframe.setTitle(NAME);
-        jframe.getContentPane().setLayout(new BoxLayout(jframe.getContentPane(), BoxLayout.PAGE_AXIS));
+        BoxLayout layout = new BoxLayout(jframe.getContentPane(), BoxLayout.Y_AXIS);
+        jframe.getContentPane().setLayout(layout);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void createDisplayPanel() {
-        displayPanel = new JPanel();
-        displayPanel.setPreferredSize(DISPLAY_DIMENSION);
-        displayTextPane = new JTextPane();
-        displayPanel.add(displayTextPane);
         displayTextPane.setPreferredSize(DISPLAY_DIMENSION);
-        jframe.add(displayPanel);
+        displayTextPane.setFont(displayFont);
+        displayTextPane.setBackground(Color.BLACK);
+        displayTextPane.setForeground(Color.WHITE);
+        jframe.add(displayTextPane);
     }
 
     private void createRowOnePanel() {
-        rowOnePanel = new JPanel();
-        rowOnePanel.setLayout(new FlowLayout());
-        rowOnePanel.setPreferredSize(new Dimension(400, 200));
-        rowOneRightPanel = new JPanel();
-        rowOneRightPanel.setLayout(new BoxLayout(rowOneRightPanel, BoxLayout.Y_AXIS));
-        rowOneRightPanel.setSize(100, 200);
-        oneButton = new JButton("1");
-        oneButton.setSize(NUMBER_BUTTON_DIMENSION);
-        addButton = new JButton("+");
-        addButton.setSize(OPERATION_BUTTON_DIMENSION);
-        subtractButton = new JButton("-");
-        subtractButton.setSize(OPERATION_BUTTON_DIMENSION);
-        rowOneRightPanel.add(addButton);
-        rowOneRightPanel.add(subtractButton);
+        rowOneRightPanel.add(addButton, BorderLayout.PAGE_START);
+        rowOneRightPanel.add(subtractButton, BorderLayout.PAGE_END);
         rowOnePanel.add(oneButton);
         rowOnePanel.add(rowOneRightPanel);
         jframe.add(rowOnePanel);
     }
 
     private void createRowZeroPanel() {
-        rowZeroPanel = new JPanel();
-        rowZeroPanel.setLayout(new FlowLayout());
-        rowZeroPanel.setPreferredSize(NUMBER_BUTTON_ROW_DIMENSION);
-        rowZeroRightPanel = new JPanel();
-        rowZeroRightPanel.setLayout(new BoxLayout(rowZeroRightPanel, BoxLayout.Y_AXIS));
-        rowZeroRightPanel.setSize(rowOneRightPanel.getSize());
-        zeroButton = new JButton("0");
-        zeroButton.setSize(NUMBER_BUTTON_DIMENSION);
-        multiplyButton = new JButton("×");
-        multiplyButton.setSize(OPERATION_BUTTON_DIMENSION);
-        divideButton = new JButton("÷");
-        divideButton.setSize(OPERATION_BUTTON_DIMENSION);
+        rowZeroRightPanel.add(multiplyButton, BorderLayout.PAGE_START);
+        rowZeroRightPanel.add(divideButton, BorderLayout.PAGE_END);
         rowZeroPanel.add(zeroButton);
-        rowZeroRightPanel.add(multiplyButton);
-        rowZeroRightPanel.add(divideButton);
         rowZeroPanel.add(rowZeroRightPanel);
         jframe.add(rowZeroPanel);
     }
 
-    private void createEqualsPanel() {
-        equalsButton = new JButton("=");
-        equalsButton.setPreferredSize(NUMBER_BUTTON_ROW_DIMENSION);
-        jframe.add(equalsButton);
+    private void createEqualButton() {
+        equalPanel.add(equalButton, BorderLayout.CENTER);
+        jframe.add(equalPanel);
+    }
+
+    private class OperationButton extends JButton {
+
+        OperationButton(String label) {
+            super(label);
+            this.setFont(displayFont);
+            this.setBackground(Color.DARK_GRAY);
+            this.setForeground(Color.WHITE);
+        }
+
+        @Override
+        public Dimension getPreferredSize() {
+            return new Dimension(OPERATION_BUTTON_DIMENSION);
+        }
+
+    }
+
+    private class NumberButton extends JButton {
+
+        NumberButton(String label) {
+            super(label);
+            this.setFont(displayFont);
+            this.setBackground(Color.LIGHT_GRAY);
+            this.setForeground(Color.WHITE);
+        }
+
+        @Override
+        public Dimension getPreferredSize() {
+            return new Dimension(NUMBER_BUTTON_DIMENSION);
+        }
+
+    }
+
+    private class RowPanel extends JPanel {
+
+        public RowPanel() {
+            super();
+            FlowLayout layout = new FlowLayout();
+            layout.setHgap(0);
+            layout.setVgap(0);
+            this.setLayout(layout);
+            this.setBorder(null);
+        }
+
+        @Override
+        public Dimension getPreferredSize() {
+            return NUMBER_BUTTON_ROW_DIMENSION;
+        }
+
+    }
+
+    private class RowOperationPanel extends JPanel {
+
+        public RowOperationPanel() {
+            super();
+            this.setLayout(new BorderLayout());
+            this.setBorder(null);
+        }
+
+        @Override
+        public Dimension getPreferredSize() {
+            return OPERATION_PANEL_DIMENSION;
+        }
+
+    }
+
+    private class EqualPanel extends JPanel {
+
+        public EqualPanel() {
+            super();
+            BorderLayout layout = new BorderLayout();
+            this.setLayout(layout);
+        }
+
+        @Override
+        public Dimension getPreferredSize() {
+            return EQUAL_BUTTON_DIMENSION;
+        }
+
+    }
+
+    private class EqualButton extends JButton {
+
+        public EqualButton(String label) {
+            super(label);
+            this.setBorder(null);
+            this.setFont(displayFont);
+            this.setBackground(Color.ORANGE);
+            this.setForeground(Color.WHITE);
+        }
+
+        @Override
+        public Dimension getPreferredSize() {
+            return EQUAL_BUTTON_DIMENSION;
+        }
+
     }
 
 }
