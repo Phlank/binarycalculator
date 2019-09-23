@@ -23,6 +23,8 @@ public class CalculatorView {
     public CalculatorView() {
         createJFrame();
         createDisplayPanel();
+        createNumberButtonPanel();
+        createOperationButtonPanel();
         jframe.pack();
         jframe.setVisible(true);
     }
@@ -36,12 +38,49 @@ public class CalculatorView {
 
     private void createDisplayPanel() {
         displayPanel = new JPanel();
-        displayPanel.setSize(400,100);
+        displayPanel.setSize(400, 100);
         displayTextPane = new JTextPane();
         displayPanel.add(displayTextPane);
-        displayTextPane.setSize(400,100);
-        displayTextPane.setMinimumSize(new Dimension(400,100));
+        displayTextPane.setSize(400, 100);
+        displayTextPane.setMinimumSize(new Dimension(400, 100));
         jframe.add(displayPanel);
+    }
+
+    private void createNumberButtonPanel() {
+        createNumberButtons();
+        numberButtonPanel = new JPanel();
+        numberButtonPanel.setLayout(new BoxLayout(numberButtonPanel, BoxLayout.LINE_AXIS));
+        numberButtonPanel.add(zeroButton);
+        numberButtonPanel.add(oneButton);
+        jframe.add(numberButtonPanel);
+    }
+
+    private void createNumberButtons() {
+        zeroButton = new JButton("0");
+        zeroButton.setSize(200, 100);
+        oneButton = new JButton("1");
+        oneButton.setSize(200, 100);
+    }
+
+    private void createOperationButtonPanel() {
+        createOperationButtons();
+        operationButtonPanel = new JPanel();
+        operationButtonPanel.add(addButton);
+        operationButtonPanel.add(subtractButton);
+        operationButtonPanel.add(multiplyButton);
+        operationButtonPanel.add(divideButton);
+        jframe.add(operationButtonPanel);
+    }
+
+    private void createOperationButtons() {
+        addButton = new JButton("+");
+        addButton.setSize(200,100);
+        subtractButton = new JButton("-");
+        subtractButton.setSize(200,100);
+        multiplyButton = new JButton("*");
+        multiplyButton.setSize(200,100);
+        divideButton = new JButton("/");
+        divideButton.setSize(200,100);
     }
 
 }
