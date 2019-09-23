@@ -1,2 +1,0 @@
-# binarycalculator
-CS495
