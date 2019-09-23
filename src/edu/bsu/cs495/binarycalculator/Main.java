@@ -6,7 +6,7 @@ import edu.bsu.cs495.binarycalculator.view.CalculatorView;
 public class Main {
 
     public static void main(String args[]) {
-        CalculatorView calculator = new CalculatorView();
+        CalculatorView calculator = new CalculatorView(new Calculator());
     }
 
 }
