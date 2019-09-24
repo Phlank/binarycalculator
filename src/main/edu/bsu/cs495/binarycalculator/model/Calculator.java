@@ -3,47 +3,70 @@ package edu.bsu.cs495.binarycalculator.model;
 import java.util.InputMismatchException;
 
 public class Calculator {
-    String binaryString = "";
-    String result;
-    Character operator;
+    private StringBuilder stringBuilder = new StringBuilder();
+    private String result;
+    private Character operator;
 
     void add0(){
-        binaryString+="0";
+        stringBuilder.append("0");
     }
 
     void add1(){
-        binaryString+="1";
+        stringBuilder.append("1");
     }
 
     void addition(){
-        binaryString+=',';
-        operator = '+';
+        stringBuilder.append(",");
+        setOperator('+');
     }
 
     void subtraction(){
-        binaryString+=',';
-        operator = '-';
+        stringBuilder.append(",");
+        setOperator('-');
     }
 
     void multiplication(){
-        binaryString+=',';
-        operator = '*';
+        stringBuilder.append(",");
+        setOperator('*');
     }
 
     void division(){
-        binaryString+=',';
-        operator = '/';
+        stringBuilder.append(",");
+        setOperator('/');
     }
 
     void equals() {
-        String[] inputStrings = binaryString.split(",",0);
+        String[] inputStrings = stringBuilder.toString().split(",",0);
         if (inputStrings.length != 2){
             throw new InputMismatchException();
-        }
-        Integer operand1 = Integer.parseInt(inputStrings[0],2);
-        Integer operand2 = Integer.parseInt(inputStrings[1],2);
+        } else {
+            int operand1 = Integer.parseInt(inputStrings[0],2);
+            int operand2 = Integer.parseInt(inputStrings[1],2);
 
-        result = findResult(operand1, operand2);
+            setResult(findResult(operand1, operand2));
+        }
+    }
+
+    void square(){
+        String binaryString = stringBuilder.toString();
+        if (binaryString.contains(",")){
+            throw new InputMismatchException();
+        } else {
+            operator = '*';
+            int operand = Integer.parseInt(binaryString,2);
+            setResult(findResult(operand, operand));
+        }
+    }
+
+    void root(){
+        String binaryString = stringBuilder.toString();
+        if (binaryString.contains(",")){
+            throw new InputMismatchException();
+        } else {
+            operator = 'r';
+            int operand = Integer.parseInt(binaryString,2);
+            setResult(findResult(operand,null));
+        }
     }
 
     private String findResult(Integer operand1, Integer operand2){
@@ -56,8 +79,35 @@ public class Calculator {
                 return Integer.toBinaryString(operand1 * operand2);
             case '/':
                 return Integer.toBinaryString(operand1 / operand2);
+            case 'r':
+                int root = (int) Math.sqrt(operand1);
+                return Integer.toBinaryString(root);
         }
         return null;
+    }
+
+    StringBuilder getStringBuilder() {
+        return stringBuilder;
+    }
+
+    void setStringBuilder(StringBuilder stringBuilder) {
+        this.stringBuilder = stringBuilder;
+    }
+
+    String getResult() {
+        return result;
+    }
+
+    private void setResult(String result) {
+        this.result = result;
+    }
+
+    public Character getOperator() {
+        return operator;
+    }
+
+    void setOperator(Character operator) {
+        this.operator = operator;
     }
 }
 
