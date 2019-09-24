@@ -3,6 +3,9 @@ package edu.bsu.cs495.binarycalculator.view;
 import edu.bsu.cs495.binarycalculator.model.Calculator;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 import java.awt.*;
 
 public class CalculatorView {
@@ -14,7 +17,7 @@ public class CalculatorView {
     private static final Dimension NUMBER_BUTTON_DIMENSION = new Dimension(300, 200);
     private static final Dimension OPERATION_BUTTON_DIMENSION = new Dimension(100, 100);
     private static final Dimension OPERATION_PANEL_DIMENSION = new Dimension(100, 200);
-    private static final Dimension EQUAL_BUTTON_DIMENSION = new Dimension(400, 100);
+    private static final Dimension EQUAL_BUTTON_DIMENSION = new Dimension(100, 100);
 
     private Calculator calculator;
 
@@ -32,8 +35,11 @@ public class CalculatorView {
     private OperationButton multiplyButton = new OperationButton("×");
     private OperationButton divideButton = new OperationButton("÷");
     private EqualButton equalButton = new EqualButton("=");
+    private OperationButton squareButton = new OperationButton("x^2");
+    private OperationButton rootButton = new OperationButton("√");
+    private OperationButton clearButton = new OperationButton("C");
 
-    private Font displayFont = new Font("Sans Serif", Font.PLAIN, 48);
+    private Font displayFont = new Font("Sans Serif", Font.PLAIN, 75);
 
     public CalculatorView(Calculator calculator) {
         this.calculator = calculator;
@@ -42,6 +48,7 @@ public class CalculatorView {
         createRowOnePanel();
         createRowZeroPanel();
         createEqualButton();
+        addEventsToButtons();
         jframe.setSize(WINDOW_DIMENSION);
         jframe.setVisible(true);
     }
@@ -53,6 +60,7 @@ public class CalculatorView {
         BoxLayout layout = new BoxLayout(jframe.getContentPane(), BoxLayout.Y_AXIS);
         jframe.getContentPane().setLayout(layout);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jframe.setResizable(false);
     }
 
     private void createDisplayPanel() {
@@ -60,6 +68,8 @@ public class CalculatorView {
         displayTextPane.setFont(displayFont);
         displayTextPane.setBackground(Color.BLACK);
         displayTextPane.setForeground(Color.WHITE);
+        displayTextPane.setEditable(false);
+        displayTextPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         jframe.add(displayTextPane);
     }
 
@@ -80,8 +90,15 @@ public class CalculatorView {
     }
 
     private void createEqualButton() {
-        equalPanel.add(equalButton, BorderLayout.CENTER);
+        equalPanel.add(equalButton, BorderLayout.LINE_START);
+        equalPanel.add(clearButton, BorderLayout.CENTER);
+        equalPanel.add(squareButton, BorderLayout.CENTER);
+        equalPanel.add(rootButton, BorderLayout.LINE_END);
         jframe.add(equalPanel);
+    }
+
+    private void addEventsToButtons() {
+        // TODO: Add button events
     }
 
     private class OperationButton extends JButton {
@@ -153,7 +170,9 @@ public class CalculatorView {
 
         public EqualPanel() {
             super();
-            BorderLayout layout = new BorderLayout();
+            FlowLayout layout = new FlowLayout();
+            layout.setVgap(0);
+            layout.setHgap(0);
             this.setLayout(layout);
         }
 
