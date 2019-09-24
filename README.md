@@ -5,7 +5,7 @@ Ryland Babusiak = Backend Implementation
 
 Colin Ledbetter = UI Design and Configuration
 
-Jacob Knoll = Integrate UI and Backend architecture
+Jacob Knoll = UI and Backend Architecture Integration
 
 ***********************************************************************************************************************************
 
