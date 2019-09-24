@@ -3,12 +3,9 @@ package edu.bsu.cs495.binarycalculator.view;
 import edu.bsu.cs495.binarycalculator.model.Calculator;
 
 import javax.swing.*;
-import java.util.*;
-import javax.swing.border.Border;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CalculatorView{
 

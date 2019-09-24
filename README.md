@@ -13,3 +13,6 @@ BinaryCalculator performs calculations on binary integers. The program can perfo
 
 
 Writing a binary integer is preformed by clicking 0s and 1s on the UI. Once the first integer is written, an operation should be selected. The next integer is input with the 0 and 1 buttons and the calculation is performed by pressing the = button. The resulting binary number is displayed.
+
+<img src="screenshot.png" />
+

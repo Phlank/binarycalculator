@@ -1,7 +1,5 @@
 package edu.bsu.cs495.binarycalculator.model;
 
-import java.util.InputMismatchException;
-
 public class Calculator {
 
     private StringBuilder stringBuilder = new StringBuilder();
@@ -16,7 +14,7 @@ public class Calculator {
         stringBuilder.append("1");
     }
 
-    public void clear(){
+    public void clear() {
         stringBuilder = new StringBuilder();
         result = "";
         operator = null;
@@ -50,17 +48,13 @@ public class Calculator {
             if (inputStrings.length != 2 || inputStrings[0].isEmpty() || inputStrings[1].isEmpty()) {
                 clear();
                 setResult("ERR");
-            }
-
-            else {
+            } else {
                 int operand1 = Integer.parseInt(inputStrings[0], 2);
                 int operand2 = Integer.parseInt(inputStrings[1], 2);
 
                 setResult(findResult(operand1, operand2));
             }
-        }
-
-        else {
+        } else {
             clear();
             setResult("ERR");
         }
@@ -115,9 +109,9 @@ public class Calculator {
         this.stringBuilder = stringBuilder;
     }
 
-    public String getDisplayString(){
+    public String getDisplayString() {
         String[] diplayStrings = getStringBuilder().toString().split(",");
-        return diplayStrings[diplayStrings.length-1];
+        return diplayStrings[diplayStrings.length - 1];
     }
 
     public String getResult() {
