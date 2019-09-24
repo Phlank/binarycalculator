@@ -7,7 +7,7 @@ Colin Ledbetter = UI Design and Configuration
 
 Jacob Knoll = Integrate UI and Backend architecture
 
-
+***********************************************************************************************************************************
 
 BinaryCalculator performs calculations on binary integers. The program can perform addition, subtraction, division, and multiplication of two integers as well as calculate the square and square root of any integer.
 
