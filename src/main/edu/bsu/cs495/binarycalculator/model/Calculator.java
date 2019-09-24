@@ -70,7 +70,7 @@ public class Calculator {
         }
     }
 
-    private String findResult(Integer operand1, Integer operand2) {
+    public String findResult(Integer operand1, Integer operand2) {
         switch (operator) {
             case '+':
                 return Integer.toBinaryString(operand1 + operand2);
@@ -95,11 +95,11 @@ public class Calculator {
         this.stringBuilder = stringBuilder;
     }
 
-    String getResult() {
+    public String getResult() {
         return result;
     }
 
-    private void setResult(String result) {
+    public void setResult(String result) {
         this.result = result;
     }
 

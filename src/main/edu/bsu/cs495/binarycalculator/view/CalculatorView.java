@@ -3,12 +3,14 @@ package edu.bsu.cs495.binarycalculator.view;
 import edu.bsu.cs495.binarycalculator.model.Calculator;
 
 import javax.swing.*;
+import java.util.*;
 import javax.swing.border.Border;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import java.awt.*;
+import java.awt.event.*;
 
-public class CalculatorView {
+public class CalculatorView{
 
     private static final String NAME = "Binary Calculator";
     private static final Dimension WINDOW_DIMENSION = new Dimension(416, 650);
@@ -38,6 +40,8 @@ public class CalculatorView {
     private OperationButton squareButton = new OperationButton("x^2");
     private OperationButton rootButton = new OperationButton("√");
     private OperationButton clearButton = new OperationButton("C");
+
+    String display = "";
 
     private Font displayFont = new Font("Sans Serif", Font.PLAIN, 75);
 
@@ -99,7 +103,95 @@ public class CalculatorView {
 
     private void addEventsToButtons() {
         // TODO: Add button events
+
+        oneButton.addActionListener(new listenToOne());
+        zeroButton.addActionListener(new listenToZero());
+        addButton.addActionListener(new listenToAdd());
+        subtractButton.addActionListener(new listenToSubtract());
+        multiplyButton.addActionListener(new listenToMultiply());
+        divideButton.addActionListener(new listenToDivide());
+        equalButton.addActionListener(new listenToEqual());
+        squareButton.addActionListener(new listenToSquare());
+        rootButton.addActionListener(new listenToRoot());
+        clearButton.addActionListener(new listenToClear());
+
     }
+
+    private class listenToOne implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            display = displayTextPane.getText();
+            displayTextPane.setText(display + "1");
+        }
+    }
+
+    private class listenToZero implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            display = displayTextPane.getText();
+            displayTextPane.setText(display + "0");
+        }
+    }
+
+    private class listenToAdd implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            display = displayTextPane.getText();
+            displayTextPane.setText(display + "+");
+        }
+    }
+
+    private class listenToSubtract implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            display = displayTextPane.getText();
+            displayTextPane.setText(display + "-");
+        }
+    }
+
+    private class listenToMultiply implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            display = displayTextPane.getText();
+            displayTextPane.setText(display + "×");
+        }
+    }
+
+    private class listenToDivide implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            display = displayTextPane.getText();
+            displayTextPane.setText(display + "÷");
+        }
+    }
+
+
+    private class listenToEqual implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            display = displayTextPane.getText();
+            displayTextPane.setText("");
+            display = displayTextPane.getText();
+            displayTextPane.setText(calculator.getResult());
+        }
+    }
+
+
+    private class listenToSquare implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            display = displayTextPane.getText();
+            displayTextPane.setText(display + "x^2");
+        }
+    }
+
+    private class listenToRoot implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            display = displayTextPane.getText();
+            displayTextPane.setText(display + "√");
+        }
+    }
+
+    private class listenToClear implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            display = displayTextPane.getText();
+            displayTextPane.setText("");
+        }
+    }
+
+
 
     private class OperationButton extends JButton {
 
@@ -201,3 +293,5 @@ public class CalculatorView {
     }
 
 }
+
+
