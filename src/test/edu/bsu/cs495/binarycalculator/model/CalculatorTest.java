@@ -30,7 +30,7 @@ class CalculatorTest {
         calculator.add0();
         calculator.addition();
         calculator.add1();
-        calculator.equals();
+        calculator.equal();
 
         assertEquals("11", calculator.getResult());
 
@@ -44,7 +44,7 @@ class CalculatorTest {
         calculator.add0();
         calculator.subtraction();
         calculator.add1();
-        calculator.equals();
+        calculator.equal();
 
         assertEquals("1", calculator.getResult());
     }
@@ -58,7 +58,7 @@ class CalculatorTest {
         calculator.multiplication();
         calculator.add1();
         calculator.add1();
-        calculator.equals();
+        calculator.equal();
 
         assertEquals("110", calculator.getResult());
     }
@@ -73,7 +73,7 @@ class CalculatorTest {
         calculator.division();
         calculator.add1();
         calculator.add0();
-        calculator.equals();
+        calculator.equal();
 
         assertEquals("10", calculator.getResult());
     }
@@ -85,7 +85,7 @@ class CalculatorTest {
         calculator.setStringBuilder(new StringBuilder("10110,10111"));
         calculator.setOperator('+');
 
-        calculator.equals();
+        calculator.equal();
 
         assertEquals("101101", calculator.getResult());
     }

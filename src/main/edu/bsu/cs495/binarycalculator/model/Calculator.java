@@ -8,50 +8,69 @@ public class Calculator {
     private String result;
     private Character operator;
 
-    void add0() {
+    public void add0() {
         stringBuilder.append("0");
     }
 
-    void add1() {
+    public void add1() {
         stringBuilder.append("1");
     }
 
-    void addition() {
+    public void clear(){
+        stringBuilder = new StringBuilder();
+        result = "";
+        operator = null;
+    }
+
+    public void addition() {
         stringBuilder.append(",");
         setOperator('+');
     }
 
-    void subtraction() {
+    public void subtraction() {
         stringBuilder.append(",");
         setOperator('-');
     }
 
-    void multiplication() {
+    public void multiplication() {
         stringBuilder.append(",");
         setOperator('*');
     }
 
-    void division() {
+    public void division() {
         stringBuilder.append(",");
         setOperator('/');
     }
 
-    void equals() {
-        String[] inputStrings = stringBuilder.toString().split(",", 0);
-        if (inputStrings.length != 2) {
-            throw new InputMismatchException();
-        } else {
-            int operand1 = Integer.parseInt(inputStrings[0], 2);
-            int operand2 = Integer.parseInt(inputStrings[1], 2);
+    public void equal() {
+        String binaryString = stringBuilder.toString();
+        if (binaryString.contains(",") || !binaryString.isEmpty()) {
+            String[] inputStrings = stringBuilder.toString().split(",", 0);
 
-            setResult(findResult(operand1, operand2));
+            if (inputStrings.length != 2 || inputStrings[0].isEmpty() || inputStrings[1].isEmpty()) {
+                clear();
+                setResult("ERR");
+            }
+
+            else {
+                int operand1 = Integer.parseInt(inputStrings[0], 2);
+                int operand2 = Integer.parseInt(inputStrings[1], 2);
+
+                setResult(findResult(operand1, operand2));
+            }
+        }
+
+        else {
+            clear();
+            setResult("ERR");
         }
     }
 
-    void square() {
+    public void square() {
         String binaryString = stringBuilder.toString();
-        if (binaryString.contains(",")) {
-            throw new InputMismatchException();
+        if (binaryString.contains(",") || binaryString.isEmpty()) {
+            clear();
+            setResult("ERR");
         } else {
             operator = '*';
             int operand = Integer.parseInt(binaryString, 2);
@@ -59,10 +78,11 @@ public class Calculator {
         }
     }
 
-    void root() {
+    public void root() {
         String binaryString = stringBuilder.toString();
-        if (binaryString.contains(",")) {
-            throw new InputMismatchException();
+        if (binaryString.contains(",") || binaryString.isEmpty()) {
+            clear();
+            setResult("ERR");
         } else {
             operator = 'r';
             int operand = Integer.parseInt(binaryString, 2);
@@ -70,7 +90,7 @@ public class Calculator {
         }
     }
 
-    public String findResult(Integer operand1, Integer operand2) {
+    private String findResult(Integer operand1, Integer operand2) {
         switch (operator) {
             case '+':
                 return Integer.toBinaryString(operand1 + operand2);
@@ -95,11 +115,16 @@ public class Calculator {
         this.stringBuilder = stringBuilder;
     }
 
+    public String getDisplayString(){
+        String[] diplayStrings = getStringBuilder().toString().split(",");
+        return diplayStrings[diplayStrings.length-1];
+    }
+
     public String getResult() {
         return result;
     }
 
-    public void setResult(String result) {
+    private void setResult(String result) {
         this.result = result;
     }
 

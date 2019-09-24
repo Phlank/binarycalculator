@@ -37,11 +37,11 @@ public class CalculatorView{
     private OperationButton multiplyButton = new OperationButton("×");
     private OperationButton divideButton = new OperationButton("÷");
     private EqualButton equalButton = new EqualButton("=");
-    private OperationButton squareButton = new OperationButton("x^2");
-    private OperationButton rootButton = new OperationButton("√");
+    private EqualButton squareButton = new EqualButton("x^2");
+    private EqualButton rootButton = new EqualButton("√");
     private OperationButton clearButton = new OperationButton("C");
 
-    String display = "";
+    private String display = "";
 
     private Font displayFont = new Font("Sans Serif", Font.PLAIN, 75);
 
@@ -119,83 +119,74 @@ public class CalculatorView{
 
     private class listenToOne implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            display = displayTextPane.getText();
-            displayTextPane.setText(display + "1");
+            calculator.add1();
+            displayTextPane.setText(calculator.getDisplayString());
         }
     }
 
     private class listenToZero implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            display = displayTextPane.getText();
-            displayTextPane.setText(display + "0");
+            calculator.add0();
+            displayTextPane.setText(calculator.getDisplayString());
         }
     }
 
     private class listenToAdd implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            display = displayTextPane.getText();
-            displayTextPane.setText(display + "+");
+            calculator.addition();
+            displayTextPane.setText(calculator.getDisplayString());
         }
     }
 
     private class listenToSubtract implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            display = displayTextPane.getText();
-            displayTextPane.setText(display + "-");
+            calculator.subtraction();
+            displayTextPane.setText(calculator.getDisplayString());
         }
     }
 
     private class listenToMultiply implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            display = displayTextPane.getText();
-            displayTextPane.setText(display + "×");
+            calculator.multiplication();
+            displayTextPane.setText(calculator.getDisplayString());
         }
     }
 
     private class listenToDivide implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            display = displayTextPane.getText();
-            displayTextPane.setText(display + "÷");
+            calculator.division();
+            displayTextPane.setText(calculator.getDisplayString());
         }
     }
-
-
-
-
-
-
 
     private class listenToEqual implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            display = displayTextPane.getText();
+            calculator.equal();
             displayTextPane.setText(calculator.getResult());
+            calculator.clear();
         }
     }
 
-
-
-
-
-
-
     private class listenToSquare implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            display = displayTextPane.getText();
-            displayTextPane.setText(display + "x^2");
+            calculator.square();
+            displayTextPane.setText(calculator.getResult());
+            calculator.clear();
         }
     }
 
     private class listenToRoot implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            display = displayTextPane.getText();
-            displayTextPane.setText(display + "√");
+            calculator.root();
+            displayTextPane.setText(calculator.getResult());
+            calculator.clear();
         }
     }
 
     private class listenToClear implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            display = displayTextPane.getText();
-            displayTextPane.setText("");
+            calculator.clear();
+            displayTextPane.setText(calculator.getDisplayString());
         }
     }
 
@@ -233,9 +224,9 @@ public class CalculatorView{
 
     }
 
-    private class RowPanel extends JPanel {
+    private static class RowPanel extends JPanel {
 
-        public RowPanel() {
+        RowPanel() {
             super();
             FlowLayout layout = new FlowLayout();
             layout.setHgap(0);
@@ -251,9 +242,9 @@ public class CalculatorView{
 
     }
 
-    private class RowOperationPanel extends JPanel {
+    private static class RowOperationPanel extends JPanel {
 
-        public RowOperationPanel() {
+        RowOperationPanel() {
             super();
             this.setLayout(new BorderLayout());
             this.setBorder(null);
@@ -266,9 +257,9 @@ public class CalculatorView{
 
     }
 
-    private class EqualPanel extends JPanel {
+    private static class EqualPanel extends JPanel {
 
-        public EqualPanel() {
+        EqualPanel() {
             super();
             FlowLayout layout = new FlowLayout();
             layout.setVgap(0);
@@ -285,7 +276,7 @@ public class CalculatorView{
 
     private class EqualButton extends JButton {
 
-        public EqualButton(String label) {
+        EqualButton(String label) {
             super(label);
             this.setBorder(null);
             this.setFont(displayFont);
