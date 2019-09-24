@@ -160,14 +160,22 @@ public class CalculatorView{
     }
 
 
+
+
+
+
+
     private class listenToEqual implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            display = displayTextPane.getText();
-            displayTextPane.setText("");
             display = displayTextPane.getText();
             displayTextPane.setText(calculator.getResult());
         }
     }
+
+
+
+
+
 
 
     private class listenToSquare implements ActionListener {
